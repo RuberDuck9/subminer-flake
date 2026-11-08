@@ -14,6 +14,10 @@ in
 appimageTools.wrapType2 {
   inherit pname version src;
 
+  extraPkgs = pkgs: with pkgs; [
+    mpv ffmpeg mecab yt-dlp xz python314Packages.guessit ffsubsync fzf rofi chafa ffmpegthumbnailer
+  ];
+
   extraInstallCommands = ''
     desktopFile=$(find ${appimageContents} -name "*.desktop" | head -n 1)
     if [ -n "$desktopFile" ]; then
