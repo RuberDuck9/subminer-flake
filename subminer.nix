@@ -1,4 +1,4 @@
-{ pkgs, lib, fetchurl, appimageTools, symlinkJoin, writeShellScriptBin, runtimeShell }: 
+{ pkgs, lib, fetchurl, appimageTools, symlinkJoin, writeShellScriptBin }: 
 
 let
   version = "0.22.0";
@@ -39,7 +39,9 @@ let
   launcher = writeShellScriptBin "subminer" ''
     export PATH=${lib.makeBinPath runtimeDeps}:$PATH
     export SUBMINER_BINARY_PATH=${app}/bin/subminer-app
-    exec ${runtimeShell} ${appimageContents}/resources/launcher/subminer "$@"
+    export SUBMINER_MANAGED_LAUNCHER=1
+    export SUBMINER_LAUNCHER_PATH="$0"
+    exec ${pkgs.bun}/bin/bun ${appimageContents}/resources/launcher/subminer.js "$@"
   '';
 in
 symlinkJoin {
