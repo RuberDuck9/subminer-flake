@@ -11,9 +11,10 @@
       system = "x86_64-linux";
       pkgs = import nixpkgs { inherit system; };
     in {
-      packages.${system}.subminer = pkgs.callPackage ./subminer.nix {};
-
-      defaultPackage.${system} = self.packages.${system}.subminer;
+      packages.${system} = {
+        subminer = pkgs.callPackage ./subminer.nix {};
+        default = self.packages.${system}.subminer;
+      };
     };
 
 }
