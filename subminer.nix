@@ -12,7 +12,7 @@ let
 
   runtimeDeps = with pkgs; [
     coreutils mpv ffmpeg mecab yt-dlp xz python314Packages.guessit 
-    ffsubsync fzf rofi chafa ffmpegthumbnailer
+    ffsubsync fzf rofi chafa ffmpegthumbnailer whisper-cpp
   ];
 
   app = appimageTools.wrapType2 {
